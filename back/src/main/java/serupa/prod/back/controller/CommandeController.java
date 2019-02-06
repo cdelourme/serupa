@@ -27,18 +27,13 @@ public class CommandeController {
 	@Autowired
 	private CommandeService commandeService;
 	
-//	@GetMapping("commande/{id}")
-//	public ResponseEntity<Commande> getArticleById(@PathVariable("id") Long id) {
-//		Optional<Commande> maCommande = commandeService.findById(id);
-//		return new ResponseEntity<Commande>(HttpStatus.OK);
-//	}
 	@GetMapping("commande/{id}")
 	public ResponseEntity<Commande> getCommandeById(@PathVariable("id") Long id) {
 		Commande maCommande = commandeService.findById(id);
 		return new ResponseEntity<Commande>(maCommande, HttpStatus.OK);
 		//return maCommande;
 	}
-	@GetMapping("commandes")
+	@GetMapping("commande/all")
 	public ResponseEntity<List<Commande>> getAllCommandes() {
 		List<Commande> list = commandeService.getAllCommandes();
 		return new ResponseEntity<List<Commande>>(list, HttpStatus.OK);
@@ -47,7 +42,7 @@ public class CommandeController {
 	public ResponseEntity<Void> addCommande(@RequestBody Commande maCommande, UriComponentsBuilder builder) {
                 boolean flag = commandeService.addCommande(maCommande);
                 if (flag == false) {
-        	    return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+                	return new ResponseEntity<Void>(HttpStatus.CONFLICT);
                 }
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(builder.path("/commande/{id}").buildAndExpand(maCommande.getId()).toUri());
