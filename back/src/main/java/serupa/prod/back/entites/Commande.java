@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
+//@XmlRootElement
 public class Commande implements Serializable{
 
 	/**

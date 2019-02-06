@@ -3,6 +3,9 @@ package serupa.prod.back.entites;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class OrdreDebitElement implements Serializable{
@@ -15,6 +18,7 @@ public class OrdreDebitElement implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	@ManyToOne
+	@JsonIgnore
 	private OrdreDebit od_Parent;
 	
 	private String reference;

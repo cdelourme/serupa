@@ -6,9 +6,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class OrdreDebit implements Serializable {
@@ -29,6 +32,7 @@ public class OrdreDebit implements Serializable {
 	private String nom;
 	
 	@ManyToOne
+	@JsonIgnore
 	private Commande maCommande;
 	
 	@OneToMany(mappedBy="od_Parent",cascade = CascadeType.ALL, orphanRemoval = true)

@@ -2,6 +2,9 @@ package serupa.prod.back.entites;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class BocadElement  implements Serializable{
@@ -24,6 +27,7 @@ public class BocadElement  implements Serializable{
 	private Float poidsTotal;
 	private String pieceMenante;
 	@ManyToOne
+	@JsonIgnore
 	private Bocad bocad;
 	
 	public BocadElement(){
