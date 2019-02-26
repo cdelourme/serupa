@@ -21,7 +21,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import serupa.prod.back.entites.Bocad;
-import serupa.prod.back.entites.BocadElement;
+import serupa.prod.back.entites.BocadElementBoulons;
+import serupa.prod.back.entites.BocadElementExpedition;
 import serupa.prod.back.entites.Commande;
 import serupa.prod.back.entites.Manage;
 import serupa.prod.back.entites.OrdreDebit;
@@ -134,6 +135,8 @@ public class ScheduledTasks {
 				        	}
 		
 		 		        	Bocad bo = new Bocad();
+		 		        	
+		 		        	bo.setType((f.getName().split(" "))[0]);
 				         
 					        expression = "/Workbook/Worksheet/Table/Row[4]/Cell[4]";
 					        bo.setPhase((String)path.evaluate(expression, root));
@@ -142,57 +145,102 @@ public class ScheduledTasks {
 					        bo.setRevision((String)path.evaluate(expression, root));
 					         
 					        expression = "/Workbook/Worksheet/Table/Row[5]/Cell[4]";
-					        bo.setPoids(Float.valueOf((String)path.evaluate(expression, root)));
-		
-					        expression = "/Workbook/Worksheet/Table/Row[8]/Cell[4]";
-					        bo.setLongueur(Integer.valueOf((String)path.evaluate(expression, root)));
+					        String val = (String)path.evaluate(expression, root);
+					        if (!val.isEmpty())
+					        	bo.setPoids(Float.valueOf(val));
 					         
 					        expression = "/Workbook/Worksheet/Table/Row[11]/Cell[4]";
 					        bo.setPeinture((String)path.evaluate(expression, root));
-					         
+					        
+					        expression = "/Workbook/Worksheet/Table/Row[7]/Cell[4]";
+					        bo.setAtelier((String)path.evaluate(expression, root));
 			         
 					        //Recherche des elements Bocad
 					        int i =0;
 					        String repere = "repere";
 					        while(! repere.isEmpty())
 					        { 
-					        	BocadElement boe = new BocadElement();
-						        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[1]";
-						        repere = (String)path.evaluate(expression, root);
-						        if (! repere.isEmpty())
-						        {
-							        boe.setRepere(repere);
-							         
-							        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[2]";
-							        boe.setQuantite(Integer.valueOf((String)path.evaluate(expression, root)));
-		
-							        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[3]";
-							        boe.setDesignation((String)path.evaluate(expression, root));
-							         
-							        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[5]";
-							        boe.setDimension((String)path.evaluate(expression, root));
-							         
-							        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[6]";
-							        boe.setPoids(Float.valueOf((String)path.evaluate(expression, root)));
-							         
-							        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[7]";
-							        boe.setLongueur(Integer.valueOf((String)path.evaluate(expression, root)));
-							         
-							        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[8]";
-							        boe.setPoidsTotal(Float.valueOf((String)path.evaluate(expression, root)));
-							         
-							        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[9]";
-							        boe.setPieceMenante((String)path.evaluate(expression, root));
-							        bo.addElement(boe);
-							        i++;
-						        }
+					        	if("Expedition".equals(bo.getType())) 
+					        	{
+					        		
+							        expression = "/Workbook/Worksheet/Table/Row[8]/Cell[4]";
+							        bo.setLongueur(Integer.valueOf((String)path.evaluate(expression, root)));
+							        
+						        	BocadElementExpedition boe = new BocadElementExpedition();
+							        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[1]";
+							        repere = (String)path.evaluate(expression, root);
+							        if (! repere.isEmpty())
+							        {
+								        boe.setRepere(repere);
+								         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[2]";
+								        boe.setQuantite(Integer.valueOf((String)path.evaluate(expression, root)));
+			
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[3]";
+								        boe.setDesignation((String)path.evaluate(expression, root));
+								         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[5]";
+								        boe.setDimension((String)path.evaluate(expression, root));
+								         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[6]";
+								        boe.setPoids(Float.valueOf((String)path.evaluate(expression, root)));
+								         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[7]";
+								        boe.setLongueur(Integer.valueOf((String)path.evaluate(expression, root)));
+								         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[8]";
+								        boe.setPoidsTotal(Float.valueOf((String)path.evaluate(expression, root)));
+								         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[9]";
+								        boe.setPieceMenante((String)path.evaluate(expression, root));
+								        bo.addExpedition(boe);
+								        i++;
+							        }
+					        	}else if("boulons".equals(bo.getType())) {
+						        	BocadElementBoulons boe = new BocadElementBoulons();
+							        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[1]";
+							        repere = (String)path.evaluate(expression, root);
+							        if (! repere.isEmpty())
+							        {
+								        boe.setNumero(repere);
+								         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[2]";
+								        boe.setQuantite(Integer.valueOf((String)path.evaluate(expression, root)));
+			
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[3]";
+								        boe.setDesignation((String)path.evaluate(expression, root));
+								         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[4]";
+								        boe.setDin((String)path.evaluate(expression, root));
+								         					        
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[5]";
+								        boe.setResistance((String)path.evaluate(expression, root));			
+								        
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[6]";
+								        boe.setStockageSite((String)path.evaluate(expression, root));
+								        
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[7]";
+								        boe.setPoids(Float.valueOf((String)path.evaluate(expression, root)));
+								        						         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[8]";
+								        boe.setPoidsTotal(Float.valueOf((String)path.evaluate(expression, root)));
+								         
+								        expression = "/Workbook/Worksheet/Table/Row["+(15+i)+"]/Cell[9]";
+								        boe.setRemarque((String)path.evaluate(expression, root));
+								        
+								        bo.addBoulon(boe);
+								        i++;
+							        }
+					        	}else {
+					        		break;
+					        	}
 					        }
 					         
 					        maCommande.addBocad(bo);
 					        comService.create(maCommande);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
-							e.getMessage();
+							System.out.println(e.getMessage());
 						}
         			}
         	        break;

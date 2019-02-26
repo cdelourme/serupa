@@ -13,7 +13,9 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-
+@Table(
+	    uniqueConstraints={@UniqueConstraint(columnNames={"type", "phase", "revision"})}
+	)
 public class Bocad implements Serializable{
 	/**
 	 * 
@@ -25,15 +27,20 @@ public class Bocad implements Serializable{
 	@ManyToOne
 	@JsonIgnore
 	private Commande projet;
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String phase;
 	private Float poids;
 	private String revision;
 	private Integer longueur;
 	private String peinture;
+	private String atelier;
+	private String type; // boulons, Expedition, matiere ou Assemblage
 	@OneToMany(mappedBy = "bocad",cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<BocadElement> elements = new ArrayList<BocadElement>();
+	private List<BocadElementExpedition> expeditions = new ArrayList<BocadElementExpedition>();
+	@OneToMany(mappedBy = "bocad",cascade = CascadeType.ALL, orphanRemoval = true)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<BocadElementBoulons> boulons = new ArrayList<BocadElementBoulons>();
 	
 	public Bocad(){
 	}
@@ -103,16 +110,45 @@ public class Bocad implements Serializable{
 		this.peinture = peinture;
 	}
 
-	public List<BocadElement> getElements() {
-		return elements;
+	public List<BocadElementExpedition> getElementExpeditions() {
+		return expeditions;
 	}
 
-	public void setElements(List<BocadElement> elements) {
-		this.elements = elements;
+	public void setElements(List<BocadElementExpedition> elements) {
+		this.expeditions = elements;
 	}
 	
-	public void addElement(BocadElement element) {
-		this.elements.add(element);
+	public void addExpedition(BocadElementExpedition element) {
+		this.expeditions.add(element);
 		element.setBocad(this);
+	}
+	
+	public List<BocadElementExpedition> getElementBoulons() {
+		return expeditions;
+	}
+
+	public void setBoulons(List<BocadElementBoulons> elements) {
+		this.boulons = elements;
+	}
+	
+	public void addBoulon(BocadElementBoulons element) {
+		this.boulons.add(element);
+		element.setBocad(this);
+	}
+
+	public String getAtelier() {
+		return atelier;
+	}
+
+	public void setAtelier(String atelier) {
+		this.atelier = atelier;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

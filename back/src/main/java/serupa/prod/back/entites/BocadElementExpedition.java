@@ -2,12 +2,11 @@ package serupa.prod.back.entites;
 import java.io.Serializable;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class BocadElement  implements Serializable{
+public class BocadElementExpedition implements Serializable{
 
 	/**
 	 * 
@@ -17,7 +16,7 @@ public class BocadElement  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private String repere;
 	private Integer quantite;
 	private String designation;
@@ -30,10 +29,10 @@ public class BocadElement  implements Serializable{
 	@JsonIgnore
 	private Bocad bocad;
 	
-	public BocadElement(){
+	public BocadElementExpedition(){
 	}
 
-	public BocadElement(String repere, Integer quantite, String designation, String dimension, Float poids,
+	public BocadElementExpedition(String repere, Integer quantite, String designation, String dimension, Float poids,
 			Float poidsTotal, String pieceMenante) {
 		super();
 		this.repere = repere;
