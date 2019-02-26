@@ -114,7 +114,7 @@ public class Bocad implements Serializable{
 		return expeditions;
 	}
 
-	public void setElements(List<BocadElementExpedition> elements) {
+	public void setExpeditions(List<BocadElementExpedition> elements) {
 		this.expeditions = elements;
 	}
 	
@@ -123,8 +123,8 @@ public class Bocad implements Serializable{
 		element.setBocad(this);
 	}
 	
-	public List<BocadElementExpedition> getElementBoulons() {
-		return expeditions;
+	public List<BocadElementBoulons> getElementBoulons() {
+		return this.boulons;
 	}
 
 	public void setBoulons(List<BocadElementBoulons> elements) {
