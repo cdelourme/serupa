@@ -7,6 +7,8 @@ import serupa.prod.back.Repository.CommandeRepository;
 import serupa.prod.back.entites.Commande;
 
 import javax.transaction.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -38,6 +40,15 @@ public class CommandeService {
     
 	public List<Commande> getAllCommandes(){
 		return commandeRepository.findAll();
+	}
+	
+	public List<String> getAllNumeroCommande(){
+		List<String> retour = new ArrayList<String>();
+		List<Commande> liste = getAllCommandes();
+		for(Commande com : liste) {
+			retour.add(com.getNumero());			
+		}
+		return retour;
 	}
 	
 	public synchronized boolean addCommande(Commande maCommande){

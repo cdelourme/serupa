@@ -42,9 +42,9 @@ public class ScheduledTasks {
     @Autowired
     private ManageService manageService;
     
-    @Scheduled(fixedRate = 20000)
+    @Scheduled(fixedDelay = 60000)
     public void reportCurrentTime() {
-        log.info("The time is now {}", dateFormat.format(new Date()));
+        log.info("****************************************************   The time is now {}", dateFormat.format(new Date()));
         if(manageService.findAll().isEmpty()) {
         	manageService.alimenteBase();
         }
@@ -97,7 +97,7 @@ public class ScheduledTasks {
         					
         				} catch (Exception e) {
         					// TODO Auto-generated catch block
-        					e.printStackTrace();
+        					//e.printStackTrace();
         					maCommande = null;
         				}
         			}
@@ -240,7 +240,7 @@ public class ScheduledTasks {
 					        comService.create(maCommande);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
-							System.out.println(e.getMessage());
+							//System.out.println(e.getMessage());
 						}
         			}
         	        break;

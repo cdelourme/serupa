@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import serupa.prod.back.entites.Commande;
 import serupa.prod.back.service.CommandeService;
 
+@CrossOrigin
 @Controller
 //@RequestMapping("commande")
 public class CommandeController {
@@ -37,6 +39,11 @@ public class CommandeController {
 	public ResponseEntity<List<Commande>> getAllCommandes() {
 		List<Commande> list = commandeService.getAllCommandes();
 		return new ResponseEntity<List<Commande>>(list, HttpStatus.OK);
+	}
+	@GetMapping("listecommande")
+	public ResponseEntity<List<String>> getAllNumeroCommande() {
+		List<String> list = commandeService.getAllNumeroCommande();
+		return new ResponseEntity<List<String>>(list, HttpStatus.OK);
 	}
 	@PostMapping("commande")
 	public ResponseEntity<Void> addCommande(@RequestBody Commande maCommande, UriComponentsBuilder builder) {
