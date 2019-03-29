@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { CommandeService } from './services/commande.service';
 
@@ -8,19 +8,25 @@ import { CommandeService } from './services/commande.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
   title = 'webapp';
   maCommande = [];
   listeCommandes = [];
   selectedId = "";
 
   constructor(private commandeService: CommandeService){
-
   }
 
   getListeCommandes(){
     this.commandeService.getListeCommandeFromServer();
-    this.listeCommandes = this.commandeService.listeCommandes;
+    if(this.commandeService.listeCommandes){
+      this.listeCommandes = this.commandeService.listeCommandes;
+    }
+  }
+
+  ngOnInit(): void {
+    this.getListeCommandes();
   }
 }
 

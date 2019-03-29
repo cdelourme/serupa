@@ -8,8 +8,8 @@ import { BocadService } from '../services/bocad.service';
 })
 export class BocadComponent implements OnInit {
 
-  @Input() bocadId: number;
-  bocad :any;
+  @Input() bocad: any;
+  //bocad :any;
 
   constructor(private bocadService:BocadService) { }
 
@@ -17,7 +17,7 @@ export class BocadComponent implements OnInit {
   }
 
   getBocad(){
-    this.bocad = this.bocadService.getBocadFromServer(this.bocadId);
+    //this.bocad = this.bocadService.getBocadFromServer(this.bocadId);
   }
 
 }

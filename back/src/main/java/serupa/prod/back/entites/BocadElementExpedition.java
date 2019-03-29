@@ -25,6 +25,7 @@ public class BocadElementExpedition implements Serializable{
 	private Integer longueur;
 	private Float poidsTotal;
 	private String pieceMenante;
+	private String palette;
 	@ManyToOne
 	@JsonIgnore
 	private Bocad bocad;
@@ -122,5 +123,13 @@ public class BocadElementExpedition implements Serializable{
 
 	public void setLongueur(Integer longueur) {
 		this.longueur = longueur;
+	}
+
+	public String getPalette() {
+		return palette;
+	}
+
+	public void setPalette(String palette) {
+		this.palette = palette;
 	}
 }

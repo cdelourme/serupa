@@ -31,6 +31,7 @@ public class BocadElementBoulons implements Serializable{
 	private Float poids;
 	private Float poidsTotal;
 	private String remarque;
+	private String palette;
 	@ManyToOne
 	@JsonIgnore
 	private Bocad bocad;
@@ -97,6 +98,12 @@ public class BocadElementBoulons implements Serializable{
 	}
 	public void setRemarque(String remarque) {
 		this.remarque = remarque;
+	}
+	public String getPalette() {
+		return palette;
+	}
+	public void setPalette(String palette) {
+		this.palette = palette;
 	}
 	public Bocad getBocad() {
 		return bocad;

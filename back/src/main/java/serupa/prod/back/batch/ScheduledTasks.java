@@ -42,7 +42,7 @@ public class ScheduledTasks {
     @Autowired
     private ManageService manageService;
     
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelay = 180000)
     public void reportCurrentTime() {
         log.info("****************************************************   The time is now {}", dateFormat.format(new Date()));
         if(manageService.findAll().isEmpty()) {

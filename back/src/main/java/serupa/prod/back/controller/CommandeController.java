@@ -35,6 +35,12 @@ public class CommandeController {
 		return new ResponseEntity<Commande>(maCommande, HttpStatus.OK);
 		//return maCommande;
 	}
+	@GetMapping("commande/numero/{numero}")
+	public ResponseEntity<Commande> getCommandeByNumero(@PathVariable("numero") String numero) {
+		Commande maCommande = commandeService.findByNumero(numero);
+		return new ResponseEntity<Commande>(maCommande, HttpStatus.OK);
+		//return maCommande;
+	}
 	@GetMapping("commande/all")
 	public ResponseEntity<List<Commande>> getAllCommandes() {
 		List<Commande> list = commandeService.getAllCommandes();
