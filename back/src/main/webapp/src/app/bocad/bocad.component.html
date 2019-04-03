@@ -1,1 +1,7 @@
-{{bocad.phase}} - {{bocad.revision}} - {{bocad.type}} - {{bocad.peinture}} <br>
+{{bocad.phase}} - {{bocad.revision}} - {{bocad.type}} - {{bocad.peinture}}  - {{bocad.atelier}}
+<!-- <item type="checkbox" [checked]="bocad. == 'true'"> -->
+
+<ul >
+    <app-element-expedition [element] = "monElement" *ngFor = "let monElement of bocad.elementExpeditions"></app-element-expedition>
+</ul>
+<br>

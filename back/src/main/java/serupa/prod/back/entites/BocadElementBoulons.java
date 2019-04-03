@@ -31,7 +31,7 @@ public class BocadElementBoulons implements Serializable{
 	private Float poids;
 	private Float poidsTotal;
 	private String remarque;
-	private String palette;
+	private String palette ="";
 	@ManyToOne
 	@JsonIgnore
 	private Bocad bocad;

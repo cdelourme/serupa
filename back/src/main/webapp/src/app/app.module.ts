@@ -9,7 +9,9 @@ import { BocadComponent } from './bocad/bocad.component';
 import { BocadService } from './services/bocad.service'
 import { CommandeService } from './services/commande.service';
 import { FormsModule } from '@angular/forms';
-import { CommandeComponent } from './commande/commande.component'
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommandeComponent } from './commande/commande.component';
+import { ElementExpeditionComponent } from './element-expedition/element-expedition.component'
 
 // import { Observable } from 'rxjs';
 
@@ -17,14 +19,15 @@ import { CommandeComponent } from './commande/commande.component'
   declarations: [
     AppComponent,
     BocadComponent,
-    CommandeComponent
+    CommandeComponent,
+    ElementExpeditionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule//,
-    //Observable
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     BocadService,

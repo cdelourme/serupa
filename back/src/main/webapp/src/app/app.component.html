@@ -39,9 +39,21 @@
         <select class="form-control" [(ngModel)]="selectedId">
           <option [(ngValue)]="idCommande" *ngFor = "let idCommande of listeCommandes">{{idCommande}}</option>
         </select>
+        <br>
+        <h2>Atelier: </h2>
+        <select class="form-control" [(ngModel)]="selectedType">
+          <option>Charpente</option>
+          <option>Pliage</option>
+          <option>Panneaux</option>
+          <option>Equipements</option>
+          <option>Magasin</option>
+        </select>
+        <h2>Palette :</h2>
+          <input class="form-control" type="text" [formControl]="paletteString">  
+          <button class="btn btn-success" (click)="submitPalette()">Transfert</button>      
     </div>
     <div class="col-sm-8 text-left">
-        <app-commande *ngIf="selectedId" [commandeNumero]="selectedId"></app-commande>
+        <app-commande *ngIf="selectedId" [commandeNumero]="selectedId"  (outputCommande)="getOutputCommande($event)"></app-commande>
     </div>
     <div class="col-sm-2 text-left">
     </div>
